@@ -4,11 +4,11 @@ import { ApiResponse } from "../utils/apiResponse.js";
 import { User } from "../models/models.js";
 import axios from "axios";
 
-// const STORE_ITEMS = {
-//   VOUCHER_500: 500,
-//   MERCH_TEE: 2000,
-//   DONATE_100: 100,
-// };
+const STORE_ITEMS = {
+  VOUCHER_500: 500,
+  MERCH_TEE: 2000,
+  DONATE_100: 100,
+};
 
 export const redeemItem = asyncHandler(async (req, res) => {
   // 1. Get the product ID
