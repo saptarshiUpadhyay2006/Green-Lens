@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 function WhatWeDo() {
   const [hoveredIndex, setHoveredIndex] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef(null);
 
   const images = [
@@ -16,9 +17,18 @@ function WhatWeDo() {
     },
     {
       src: "/carousel3.png",
-      alt: "Earn & Redeem Green Tokens -Every eco-friendly action earns you Green Tokens, redeemable for eco products, donations, or rewards.",
+      alt: "Earn & Redeem Green Tokens - Every eco-friendly action earns you Green Tokens, redeemable for eco products, donations, or rewards.",
     }
   ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,7 +38,7 @@ function WhatWeDo() {
         }
       },
       {
-        threshold: 0.2,
+        threshold: 0.1,
       }
     );
 
@@ -45,6 +55,15 @@ function WhatWeDo() {
 
   const getCardStyle = (index) => {
     const isHovered = hoveredIndex === index;
+    if (isMobile) {
+      return {
+        width: '100%',
+        maxWidth: '300px',
+        height: '380px',
+        transition: 'transform 0.3s ease-in-out',
+        transform: isHovered ? 'scale(1.03)' : 'scale(1)',
+      };
+    }
     return {
       height: isHovered ? '85%' : '75%',
       transition: 'height 0.4s ease-in-out, transform 0.4s ease-in-out',
@@ -55,23 +74,23 @@ function WhatWeDo() {
   return (
     <div 
       ref={sectionRef}
-      className='relative bg-linear-to-b h-screen from-[#A5D6A7] to-[#E8F5E9] min-h-screen flex flex-col justify-evenly items-center overflow-hidden'
+      className='relative bg-gradient-to-b from-[#A5D6A7] to-[#E8F5E9] min-h-screen h-auto md:h-screen py-16 md:py-0 flex flex-col justify-evenly items-center overflow-hidden'
     >
       <h1 
-        className='text-7xl font-bold uppercase text-[#212121] text-center px-4'
+        className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase text-[#212121] text-center px-4 tracking-tight z-10'
         style={{
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
           transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
         }}
       >
-        {`We Don't Just Track. We Transform.`}
+        We Don&apos;t Just Track. <span className="text-emerald-700 block sm:inline mt-2 sm:mt-0">We Transform.</span>
       </h1>
       
       {/* Decorative SVG Blobs */}
       <svg
         viewBox="0 0 200 200"
-        className="absolute top-[40%] left-[8%] opacity-20 pointer-events-none"
+        className="absolute top-[40%] left-[8%] opacity-20 pointer-events-none hidden md:block"
         style={{ width: '500px', height: '500px' }}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -84,7 +103,7 @@ function WhatWeDo() {
 
       <svg
         viewBox="0 0 200 200"
-        className="absolute top-[35%] right-[5%] opacity-15 pointer-events-none"
+        className="absolute top-[35%] right-[5%] opacity-15 pointer-events-none hidden md:block"
         style={{ width: '600px', height: '600px' }}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -97,7 +116,7 @@ function WhatWeDo() {
 
       <svg
         viewBox="0 0 200 200"
-        className="absolute bottom-[15%] left-[12%] opacity-25 pointer-events-none"
+        className="absolute bottom-[15%] left-[12%] opacity-25 pointer-events-none hidden md:block"
         style={{ width: '400px', height: '400px' }}
         xmlns="http://www.w3.org/2000/svg"
       >
@@ -109,7 +128,7 @@ function WhatWeDo() {
       </svg>
 
       <div 
-        className='img-container relative h-[65%] w-[80%] bg-[#ffffff50] rounded-2xl backdrop-blur-3xl flex justify-evenly items-center'
+        className='img-container relative h-auto md:h-[65%] w-[90%] md:w-[80%] bg-emerald-50/20 md:bg-emerald-50/30 rounded-3xl backdrop-blur-3xl flex flex-col md:flex-row justify-evenly items-center gap-8 md:gap-4 p-8 md:p-0 z-10 shadow-xl border border-emerald-500/20'
         style={{
           opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(80px)',
@@ -119,7 +138,7 @@ function WhatWeDo() {
         {images.map((image, index) => (
           <div
             key={index}
-            className='aspect-4/5 bg-red-500 rounded-2xl cursor-pointer'
+            className='aspect-4/5 bg-emerald-800 rounded-2xl cursor-pointer relative overflow-hidden group shadow-lg flex flex-col justify-end border border-white/10'
             style={{
               ...getCardStyle(index),
               backgroundImage: `url(${image.src})`,
@@ -127,7 +146,7 @@ function WhatWeDo() {
               backgroundPosition: 'center',
               opacity: isVisible ? 1 : 0,
               transform: isVisible 
-                ? `translateY(0) ${hoveredIndex === index ? 'scale(1.02)' : 'scale(1)'}`
+                ? `${isMobile ? 'translateY(0)' : `translateY(0) ${hoveredIndex === index ? 'scale(1.02)' : 'scale(1)'}`}`
                 : 'translateY(100px)',
               transition: `
                 height 0.4s ease-in-out,
@@ -137,7 +156,20 @@ function WhatWeDo() {
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(1)}
-          />
+          >
+            {/* Gradient overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent opacity-90 transition-opacity duration-300 group-hover:from-black/95" />
+            
+            {/* Card text content */}
+            <div className="relative z-10 p-5 text-left text-white transform transition-transform duration-300">
+              <h3 className="text-lg md:text-xl font-bold mb-1.5 tracking-tight text-white drop-shadow-sm">
+                {image.alt.split(" - ")[0]}
+              </h3>
+              <p className="text-xs md:text-sm text-gray-200/90 leading-snug drop-shadow-sm font-medium">
+                {image.alt.split(" - ")[1]}
+              </p>
+            </div>
+          </div>
         ))}
       </div>
     </div>

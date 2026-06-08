@@ -10,9 +10,9 @@ export default function HomePage() {
   // Loading state
   
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen w-full">
        <UserProfile/>
-    </div>
-  );
+      </div>
+    );
 
 }

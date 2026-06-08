@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { CheckCircle, Leaf } from 'lucide-react';
+import { CheckCircle, Leaf, ArrowLeft } from 'lucide-react';
+import Footer from '../components/Footer.jsx';
 
 export default function MethodSelection() {
   const [selectedMethod, setSelectedMethod] = useState('');
@@ -13,7 +14,7 @@ export default function MethodSelection() {
     { id: 'solar', label: 'Solar Power' },
     { id: 'transport', label: 'Transport Mode' },
     { id: 'plantation', label: 'Tree Plantation' },
-    {id: 'purchase', label: 'Purchase of Eco-Friendly Products' }
+    { id: 'purchase', label: 'Purchase of Eco-Friendly Products' }
   ];
 
   const handleContinue = () => {
@@ -21,74 +22,88 @@ export default function MethodSelection() {
   };
 
   return (
-    <motion.div
-      className="min-h-screen  w-full bg-linear-to-b from-[#A5D6A7] to-[#E8F5E9] flex items-center justify-center px-4"
-      initial={{ opacity: 0, y: 60 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-    >
-      <div className="max-w-3xl w-full bg-white/70 rounded-3xl shadow-2xl p-10 flex flex-col items-center gap-8 border border-[#1B5E20]/20 backdrop-blur-md">
-        <motion.h1
-          className="text-4xl md:text-5xl font-bold text-[#1B5E20] text-center uppercase"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Track Down Your Footprints
-        </motion.h1>
-
-        <p className="text-lg text-[#2E7D32]/80 text-center -mt-2">
-          Choose your method to calculate and record your sustainability impact.
-        </p>
-
-        <div className="w-full flex flex-col gap-4 mt-4">
-          {methods.map((method) => (
-            <motion.label
-              key={method.id}
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 200 }}
-              className={`w-full cursor-pointer p-4 rounded-2xl flex items-center justify-between border-2 transition-all duration-200 ${
-                selectedMethod === method.id
-                  ? 'bg-[#C8E6C9] border-[#1B5E20]'
-                  : 'bg-white border-[#A5D6A7] hover:border-[#1B5E20]'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <input
-                  type="radio"
-                  name="method"
-                  value={method.id}
-                  checked={selectedMethod === method.id}
-                  onChange={() => setSelectedMethod(method.id)}
-                  className="accent-[#1B5E20] w-5 h-5"
-                />
-                <span className="text-lg text-[#1B5E20] font-medium">
-                  {method.label}
-                </span>
-              </div>
-              {selectedMethod === method.id && (
-                <CheckCircle className="w-5 h-5 text-[#1B5E20]" />
-              )}
-            </motion.label>
-          ))}
+    <div className="min-h-screen bg-gradient-to-br from-[#f3f9f6] via-[#eef7f2] to-[#e6f4f1] py-12 px-4 sm:px-6 lg:px-8 font-sans flex flex-col justify-between">
+      <div className="max-w-3xl w-full mx-auto flex-grow flex flex-col justify-center py-6">
+        
+        {/* Navigation & Header */}
+        <div className="flex justify-start mb-6 w-full">
+          <button
+            onClick={() => router.push("/home")}
+            className="group flex items-center gap-2 text-sm font-bold text-emerald-900 bg-white/60 hover:bg-white border border-white/80 hover:border-emerald-500/20 px-4 py-2.5 rounded-2xl shadow-sm hover:shadow transition-all duration-300"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            Back to Dashboard
+          </button>
         </div>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 200 }}
-          onClick={handleContinue}
-          disabled={!selectedMethod}
-          className={`h-14 w-[60%] mt-4 rounded-2xl flex items-center justify-center gap-2 text-white shadow-lg transition-all duration-300 ${
-            selectedMethod
-              ? 'bg-linear-to-r from-emerald-900 to-green-950 hover:opacity-90'
-              : 'bg-gray-400 cursor-not-allowed'
-          }`}
+        <motion.div
+          className="w-full bg-emerald-50/40 rounded-[2.5rem] shadow-2xl p-6 sm:p-10 flex flex-col items-center gap-8 border border-emerald-500/20 backdrop-blur-md"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <Leaf className="w-5 h-5" />
-          Continue
-        </motion.button>
+          <motion.h1
+            className="text-3xl sm:text-4xl md:text-5xl font-black text-emerald-950 text-center tracking-tight"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Track Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600">Green Impact</span>
+          </motion.h1>
+
+          <p className="text-sm sm:text-base text-slate-500 font-semibold text-center -mt-2">
+            Choose an activity below to calculate, verify, and log your carbon reduction on the Sepolia blockchain.
+          </p>
+
+          <div className="w-full flex flex-col gap-4 mt-2">
+            {methods.map((method) => (
+              <motion.label
+                key={method.id}
+                whileHover={{ scale: 1.01 }}
+                transition={{ type: 'spring', stiffness: 250 }}
+                className={`w-full cursor-pointer p-4 rounded-2xl flex items-center justify-between border-2 transition-all duration-300 ${
+                  selectedMethod === method.id
+                    ? 'bg-emerald-50/80 border-emerald-500 text-emerald-950 font-bold shadow-md shadow-emerald-500/5'
+                    : 'bg-white/50 border-white hover:border-emerald-500/20 hover:bg-white/95 text-slate-700'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="method"
+                    value={method.id}
+                    checked={selectedMethod === method.id}
+                    onChange={() => setSelectedMethod(method.id)}
+                    className="accent-emerald-600 w-5 h-5 cursor-pointer"
+                  />
+                  <span className="text-sm sm:text-base font-bold">
+                    {method.label}
+                  </span>
+                </div>
+                {selectedMethod === method.id && (
+                  <CheckCircle className="w-5 h-5 text-emerald-600" />
+                )}
+              </motion.label>
+            ))}
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleContinue}
+            disabled={!selectedMethod}
+            className={`w-full h-14 rounded-2xl flex items-center justify-center gap-2 text-white font-extrabold shadow-lg transition-all duration-300 ${
+              selectedMethod
+                ? 'bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600 shadow-[0_4px_25px_rgba(16,185,129,0.15)]'
+                : 'bg-slate-350 cursor-not-allowed text-slate-400'
+            }`}
+          >
+            <Leaf className="w-5 h-5" />
+            Continue to Form
+          </motion.button>
+        </motion.div>
       </div>
-    </motion.div>
+      <Footer />
+    </div>
   );
 }

@@ -14,13 +14,13 @@ const benefits = [
 export default function NGOPartnership() {
   return (
     <motion.div
-      className="h-screen w-full from-[#A5D6A7] to-[#E8F5E9] bg-linear-to-b flex items-center"
+      className="min-h-screen py-16 lg:py-0 w-full bg-gradient-to-b from-[#A5D6A7] to-[#E8F5E9] flex items-center"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, ease: 'easeOut' }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.2 }}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 py-8 lg:py-0">
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           
           {/* LEFT CONTENT */}
@@ -66,7 +66,7 @@ export default function NGOPartnership() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 200 }}
-              className="h-14 w-[50%] bg-linear-to-r from-emerald-900 to-green-950 text-white rounded-2xl flex items-center justify-center gap-2 shadow-lg"
+              className="h-14 w-full sm:w-[60%] lg:w-[50%] bg-gradient-to-r from-emerald-900 to-green-950 text-white rounded-2xl flex items-center justify-center gap-2 shadow-lg"
             >
               <Mail />
               Request Partnership Info
@@ -75,7 +75,7 @@ export default function NGOPartnership() {
 
           {/* RIGHT IMAGE */}
           <motion.div
-            className="h-[80%] w-full mt-12 rounded-3xl shadow-[2px_2px_10px_rgba(0,0,0,0.4)]"
+            className="h-64 sm:h-96 lg:h-[450px] w-full mt-6 lg:mt-12 rounded-3xl shadow-[2px_2px_10px_rgba(0,0,0,0.4)]"
             style={{
               backgroundImage: `url(/ngo.png)`,
               backgroundSize: 'cover',
