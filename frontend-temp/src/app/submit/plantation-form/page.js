@@ -103,7 +103,7 @@ export default function PlantationForm() {
 
   const handleSubmit = async () => {
     // Validate form
-    if (!formData.numberOfTrees || !formData.location || !formData.imageFile) {
+    if (!formData.numberOfTrees || !formData.location) {
       alert("⚠️ Please fill in all required fields");
       return;
     }
@@ -242,12 +242,11 @@ export default function PlantationForm() {
 
           <div>
             <label className="block text-sm font-medium text-green-900 mb-2">
-              Upload Proof Image *
+              Upload Proof Image (Optional)
             </label>
             <div className="relative">
               <input
                 type="file"
-                required
                 accept=".jpg,.jpeg,.png"
                 onChange={handleFileChange}
                 className="hidden"

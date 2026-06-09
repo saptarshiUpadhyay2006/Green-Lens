@@ -90,7 +90,7 @@ export default function SolarForm() {
   const handleSubmit = async () => {
     // Validate form
     if (!formData.company || !formData.unitsGenerated || !formData.homeType || 
-        !formData.carpetArea || !formData.billFile) {
+        !formData.carpetArea) {
       alert("⚠️ Please fill in all required fields");
       return;
     }
@@ -223,12 +223,11 @@ export default function SolarForm() {
 
           <div>
             <label className="block text-sm font-medium text-amber-900 mb-2">
-              Upload Solar Generation Bill/Report *
+              Upload Solar Generation Bill/Report (Optional)
             </label>
             <div className="relative">
               <input
                 type="file"
-                required
                 accept=".pdf,.jpg,.jpeg,.png"
                 onChange={handleFileChange}
                 className="hidden"

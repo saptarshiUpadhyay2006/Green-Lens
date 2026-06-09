@@ -164,7 +164,7 @@ export default function ElectricityForm() {
     
     // Validate form
     if (!formData.customerId || !formData.unitsConsumed || !formData.homeType || 
-        !formData.carpetArea || !formData.billFile) {
+        !formData.carpetArea) {
       alert("⚠️ Please fill all required fields");
       return;
     }
@@ -311,12 +311,11 @@ export default function ElectricityForm() {
 
           <div>
             <label className="block text-sm font-medium text-yellow-900 mb-2">
-              Upload Electricity Bill *
+              Upload Electricity Bill (Optional)
             </label>
             <div className="relative">
               <input
                 type="file"
-                required
                 accept=".pdf,.jpg,.jpeg,.png"
                 onChange={handleFileChange}
                 className="hidden"

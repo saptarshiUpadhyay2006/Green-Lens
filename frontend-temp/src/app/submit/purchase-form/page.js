@@ -121,11 +121,6 @@ export default function PurchaseForm() {
       }
     }
 
-    if (!formData.invoiceFile || !formData.proofFile) {
-      alert("⚠️ Please upload both invoice and proof photo");
-      return false;
-    }
-
     return true;
   };
 
@@ -398,11 +393,10 @@ export default function PurchaseForm() {
             >
               <div>
                 <label className="block text-sm font-medium text-purple-900 mb-2">
-                  Upload Invoice/Bill *
+                  Upload Invoice/Bill (Optional)
                 </label>
                 <input
                   type="file"
-                  required
                   accept=".pdf,.jpg,.jpeg,.png"
                   onChange={(e) => handleFileChange(e, 'invoiceFile')}
                   className="hidden"
@@ -421,11 +415,10 @@ export default function PurchaseForm() {
 
               <div>
                 <label className="block text-sm font-medium text-purple-900 mb-2">
-                  Upload Proof Photo *
+                  Upload Proof Photo (Optional)
                 </label>
                 <input
                   type="file"
-                  required
                   accept=".jpg,.jpeg,.png"
                   onChange={(e) => handleFileChange(e, 'proofFile')}
                   className="hidden"
